@@ -1,15 +1,9 @@
-import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { ApiError } from "../exceptions/api-error";
-import { User } from "../models/user-model";
-import { UserService } from "../services/user-service";
+import { ApiError } from "../exceptions/api-error.mjs";
+import { UserService } from "../services/user-service.mjs";
 
 class Controller {
-  async createUser(
-    req: Request<object, object, User>,
-    res: Response,
-    next: NextFunction
-  ) {
+  async createUser(req, res, next) {
     try {
       const userData = req.body;
       const errors = validationResult(req);
@@ -31,11 +25,7 @@ class Controller {
     }
   }
 
-  async signInUser(
-    req: Request<object, object, User>,
-    res: Response,
-    next: NextFunction
-  ) {
+  async signInUser(req, res, next) {
     try {
       const body = req.body;
       const errors = validationResult(req);
@@ -57,7 +47,7 @@ class Controller {
     }
   }
 
-  async signOut(req: Request, res: Response, next: NextFunction) {
+  async signOut(req, res, next) {
     try {
       await UserService.signOut(req.cookies.refreshToken);
       res.clearCookie("refreshToken");
@@ -68,7 +58,7 @@ class Controller {
     }
   }
 
-  async refresh(req: Request<object, object, User>, res: Response, next: NextFunction) {
+  async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
 
@@ -85,11 +75,7 @@ class Controller {
     }
   }
 
-  async getAllUsers(
-    req: Request<object, object, User>,
-    res: Response,
-    next: NextFunction
-  ) {
+  async getAllUsers(req, res, next) {
     try {
       const users = await UserService.getAllUsers();
       return res.json(users);

@@ -1,4 +1,4 @@
-import { Schema, model, InferSchemaType, Types } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const schema = new Schema(
   {
@@ -10,7 +10,5 @@ const schema = new Schema(
   },
   { timestamps: true }
 );
-
-export type User = InferSchemaType<typeof schema> & { _id: Types.ObjectId };
 
 export const UserModel = model("user", schema);

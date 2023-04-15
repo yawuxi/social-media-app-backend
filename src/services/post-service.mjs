@@ -1,15 +1,15 @@
-import { Post, PostModel } from "../models/post-model";
+import { PostModel } from "../models/post-model.mjs";
 
 class Service {
   getAllPosts() {
     return PostModel.find({});
   }
 
-  getPostById(id: string) {
+  getPostById(id) {
     return PostModel.findById(id);
   }
 
-  createPost(post: Post) {
+  createPost(post) {
     return PostModel.create(post);
   }
 }

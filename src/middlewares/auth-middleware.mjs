@@ -1,7 +1,7 @@
-import { ApiError } from "../exceptions/api-error";
-import { TokenService } from "../services/token-service";
+import { ApiError } from "../exceptions/api-error.mjs";
+import { TokenService } from "../services/token-service.mjs";
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const authMiddleware = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 

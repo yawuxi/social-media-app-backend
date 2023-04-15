@@ -1,5 +1,3 @@
-import { User } from "../models/user-model";
-
 export class UserDto {
   id;
   sex;
@@ -7,7 +5,7 @@ export class UserDto {
   dateOfBirth;
   name;
 
-  constructor({ sex, email, dateOfBirth, name, _id }: User) {
+  constructor({ sex, email, dateOfBirth, name, _id }) {
     this.sex = sex;
     this.email = email;
     this.dateOfBirth = dateOfBirth;

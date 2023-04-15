@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { postRouter } from "./post-router";
-import { userRouter } from "./user-router";
+import { postRouter } from "./post-router.mjs";
+import { userRouter } from "./user-router.mjs";
 
 export const rootRouter = Router();
 

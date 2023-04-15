@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { UserController } from "../controllers/user-controller";
-import { authMiddleware } from "../middlewares/auth-middleware";
-import { loginSchema } from "../validations/login";
-import { registrationSchema } from "../validations/registration";
-
+import { UserController } from "../controllers/user-controller.mjs";
+import { authMiddleware } from "../middlewares/auth-middleware.mjs";
+import { loginSchema } from "../validations/login.mjs";
+import { registrationSchema } from "../validations/registration.mjs";
 export const userRouter = Router();
 
 userRouter.post("/registration", registrationSchema, UserController.createUser);

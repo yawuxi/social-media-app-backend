@@ -1,14 +1,14 @@
 export class ApiError extends Error {
-  status: number;
+  status;
   errors;
 
-  constructor(status: number, message: string, errors?: []) {
+  constructor(status, message, errors = []) {
     super(message);
     this.status = status;
     this.errors = errors;
   }
 
-  static BadRequest(message = "Server error", errors: [] = []) {
+  static BadRequest(message = "Server error", errors = []) {
     return new ApiError(500, message, errors);
   }
 

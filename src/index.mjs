@@ -3,8 +3,8 @@ import cors from "cors";
 import { config } from "dotenv";
 import express, { json } from "express";
 import * as mongoose from "mongoose";
-import { errorMiddleware } from "./middlewares/error-middleware";
-import { rootRouter } from "./router";
+import { errorMiddleware } from "./middlewares/error-middleware.mjs";
+import { rootRouter } from "./router/index.mjs";
 
 config();
 
@@ -13,6 +13,7 @@ const MONGO_USER = process.env.MONGO_USERNAME || "";
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "";
 
 const app = express();
+
 app.use(json());
 app.use(cors({ credentials: true }));
 app.use(cookieParser());

@@ -1,29 +1,27 @@
-import { sign, verify } from "jsonwebtoken";
-import { Types } from "mongoose";
-import { UserDto } from "../dtos/user-dto";
-import { TokeModel } from "../models/token-model";
+import jwt from "jsonwebtoken";
+import { TokeModel } from "../models/token-model.mjs";
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN_SECRET || "ACCESS_TOKEN";
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN_SECRET || "ACCESS_TOKEN";
 
 class Service {
-  generateTokens(userData: UserDto) {
-    const accessToken = sign(userData, ACCESS_TOKEN, { expiresIn: "15s" });
-    const refreshToken = sign(userData, REFRESH_TOKEN, { expiresIn: "30d" });
+  generateTokens(userData) {
+    const accessToken = jwt.sign(userData, ACCESS_TOKEN, { expiresIn: "15s" });
+    const refreshToken = jwt.sign(userData, REFRESH_TOKEN, { expiresIn: "30d" });
 
     return { accessToken, refreshToken };
   }
 
-  validateAccessToken(token: string) {
+  validateAccessToken(token) {
     try {
-      const userData = verify(token, ACCESS_TOKEN);
+      const userData = jwt.verify(token, ACCESS_TOKEN);
       return userData;
     } catch (err) {
       return null;
     }
   }
 
-  validateRefreshToken(token: string) {
+  validateRefreshToken(token) {
     try {
       const userData = verify(token, REFRESH_TOKEN);
       return userData;
@@ -32,7 +30,7 @@ class Service {
     }
   }
 
-  async saveToken(userId: Types.ObjectId, refreshToken: string) {
+  async saveToken(userId, refreshToken) {
     const refreshTokenInDB = await TokeModel.findOne({ userId });
 
     if (refreshTokenInDB) {
@@ -43,11 +41,11 @@ class Service {
     return TokeModel.create({ userId, refreshToken });
   }
 
-  async removeToken(refreshToken: string) {
+  async removeToken(refreshToken) {
     await TokeModel.deleteOne({ refreshToken });
   }
 
-  async findToken(refreshToken: string) {
+  async findToken(refreshToken) {
     await TokeModel.findOne({ refreshToken });
   }
 }

@@ -1,9 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { PostService } from "../services/post-service";
-import { Post } from "../models/post-model";
+import { PostService } from "../services/post-service.mjs";
 
 class Controller {
-  async getAllPosts(req: Request, res: Response, next: NextFunction) {
+  async getAllPosts(req, res, next) {
     try {
       const posts = await PostService.getAllPosts();
       res.json(posts);
@@ -12,7 +10,7 @@ class Controller {
     }
   }
 
-  async getPostById(req: Request, res: Response, next: NextFunction) {
+  async getPostById(req, res, next) {
     const { id } = req.params;
 
     try {
@@ -23,11 +21,7 @@ class Controller {
     }
   }
 
-  async createPost(
-    req: Request<object, object, Post>,
-    res: Response,
-    next: NextFunction
-  ) {
+  async createPost(req, res, next) {
     const postData = req.body;
 
     try {

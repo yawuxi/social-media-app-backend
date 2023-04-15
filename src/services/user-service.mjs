@@ -1,12 +1,11 @@
 import { compareSync, hashSync } from "bcrypt";
-import { UserDto } from "../dtos/user-dto";
-import { ApiError } from "../exceptions/api-error";
-import { User, UserModel } from "../models/user-model";
-import { SignInData } from "../types/user-types";
-import { TokenService } from "./token-service";
+import { UserDto } from "../dtos/user-dto.mjs";
+import { ApiError } from "../exceptions/api-error.mjs";
+import { UserModel } from "../models/user-model.mjs";
+import { TokenService } from "./token-service.mjs";
 
 class Service {
-  async createUser(userData: User) {
+  async createUser(userData) {
     const candidate = await UserModel.findOne({ email: userData.email });
 
     if (candidate) {
@@ -26,7 +25,7 @@ class Service {
     return { user: createdUser, ...tokens };
   }
 
-  async signInUser(userData: SignInData) {
+  async signInUser(userData) {
     const user = await UserModel.findOne({ email: userData.email });
 
     if (!user) {
@@ -52,11 +51,11 @@ class Service {
     return users;
   }
 
-  async signOut(refreshToken: string) {
+  async signOut(refreshToken) {
     await TokenService.removeToken(refreshToken);
   }
 
-  async refresh(refreshToken: string) {
+  async refresh(refreshToken) {
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
     }
