@@ -23,7 +23,7 @@ class Service {
 
   validateRefreshToken(token) {
     try {
-      const userData = verify(token, REFRESH_TOKEN);
+      const userData = jwt.verify(token, REFRESH_TOKEN);
       return userData;
     } catch (err) {
       return null;
@@ -46,7 +46,7 @@ class Service {
   }
 
   async findToken(refreshToken) {
-    await TokeModel.findOne({ refreshToken });
+    return await TokeModel.findOne({ refreshToken });
   }
 }
 
